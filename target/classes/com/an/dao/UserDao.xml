@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.an.dao.UserDao">
+    <select id="selectByNameAndPwd" resultType="UserInfo" parameterType="com.an.entil.UserInfo">
+        SELECT id, username, nickname, password, age
+        FROM t_user
+        where username = #{username}
+          and password = #{password}
+    </select>
+    <select id="findAll" resultType="java.util.Map">
+        select id, username, nickname, password, age
+        from t_user
+    </select>
+    <select id="selectById" resultType="UserInfo">
+        select id, username, nickname, password, age
+        from t_user
+        where id = #{id}
+    </select>
+    <select id="selectByNickname" resultType="UserInfo" parameterType="String">
+        select id, username, nickname, password, age
+        from t_user
+        where nickname = #{nickname}
+    </select>
+    <update id="updateUser" parameterType="UserInfo">
+        update t_user
+        set username=#{username},
+            nickname=#{nickname},
+            password=#{password},
+            age=#{age}
+        where id = #{id}
+    </update>
+    <delete id="delUserById" parameterType="int">
+        delete
+        from t_user
+        where id = #{id}
+    </delete>
+    <insert id="addUser" parameterType="UserInfo">
+        insert into t_user(username, nickname, password, age)
+        values (#{username}, #{nickname}, #{password}, #{age})
+    </insert>
+    <update id="forget" parameterType="UserInfo">
+        update t_user
+        set password=#{password}
+        where username = #{username}
+          and nickname = #{nickname}
+    </update>
+</mapper>
